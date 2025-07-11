@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928DAB);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .kalkulator {
+    backdrop-filter: blur(30px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    height: 70px;
+    font-size: 2em;
+    text-align: right;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .tombol {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+
+  button {
+    height: 60px;
+    font-size: 1.3em;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+  }
+
+  .operator {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: #000;
+  }
+
+  .operator:hover {
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  }
+
+  .equal {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #000;
+  }
+
+  .equal:hover {
+    background: linear-gradient(135deg, #38f9d7, #43e97b);
+  }
+
+  .clear {
+    grid-column: span 4;
+    background: linear-gradient(135deg, #f85032, #e73827);
+    font-size: 1.2em;
+  }
+
+  .clear:hover {
+    background: linear-gradient(135deg, #e73827, #f85032);
+  }
+
+  @media screen and (max-width: 480px) {
+    .kalkulator {
+      padding: 20px;
+      border-radius: 20px;
+    }
+
+    input[type="text"] {
+      height: 60px;
+      font-size: 1.6em;
+    }
+
+    button {
+      height: 55px;
+      font-size: 1.1em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="kalkulator">
+  <input type="text" id="layar" disabled>
+  <div class="tombol">
+    <button onclick="tambahInput('7')">7</button>
+    <button onclick="tambahInput('8')">8</button>
+    <button onclick="tambahInput('9')">9</button>
+<button class="operator" onclick="tambahInput('÷', '/')">÷</button>
+
+    <button onclick="tambahInput('4')">4</button>
+    <button onclick="tambahInput('5')">5</button>
+    <button onclick="tambahInput('6')">6</button>
+<button class="operator" onclick="tambahInput('×', '*')">×</button>
+
+    <button onclick="tambahInput('1')">1</button>
+    <button onclick="tambahInput('2')">2</button>
+    <button onclick="tambahInput('3')">3</button>
+<button class="operator" onclick="tambahInput('−', '-')">−</button>
+
+    <button onclick="tambahInput('0')">0</button>
+    <button onclick="tambahInput('.')">.</button>
+    <button class="equal" onclick="hitung()">=</button>
+<button class="operator" onclick="tambahInput('+')">+</button>
+
+    <button class="clear" onclick="hapus()">C</button>
+  </div>
+</div>
+
+<script>
+  let ekspresiHitung = "";
+
+  function tambahInput(tampil, nilaiAsli = tampil) {
+    ekspresiHitung += nilaiAsli;
+    document.getElementById('layar').value += tampil;
+  }
+
+  function hitung() {
+    try {
+      const hasil = eval(ekspresiHitung);
+      document.getElementById('layar').value = hasil;
+      ekspresiHitung = hasil.toString(); // agar bisa dihitung ulang
+    } catch (e) {
+      document.getElementById('layar').value = "Error";
+      ekspresiHitung = "";
+    }
+  }
+
+  function hapus() {
+    document.getElementById('layar').value = "";
+    ekspresiHitung = "";
+  }
+</script>
+
+</body>
+</html>
